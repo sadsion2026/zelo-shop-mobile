@@ -1,0 +1,36 @@
+{
+  "name": "Zelo Shop Community Source",
+  "identifier": "com.aymen.zeloshop.source",
+  "subtitle": "المتجر الرسمي لتطبيقات Zelo Shop",
+  "description": "المستودع الرسمي لتحميل وتحديث تطبيق Zelo Shop للألعاب والاشتراكات الرقمية مباشرة عبر AltStore و SideStore.",
+  "iconURL": "https://raw.githubusercontent.com/sadsion2026/zelo-shop-mobile/main/assets/icon.png",
+  "website": "https://github.com/sadsion2026/zelo-shop-mobile",
+  "tintColor": "#5844D8",
+  "featuredApps": [
+    "com.aymen.zeloshop"
+  ],
+  "apps": [
+    {
+      "name": "Zelo Shop",
+      "bundleIdentifier": "com.aymen.zeloshop",
+      "developerName": "Aymen Hussein",
+      "subtitle": "متجر الألعاب والاشتراكات الرقمية",
+      "localizedDescription": "تطبيق Zelo Shop الرسمي لشراء وتجديد اشتراكات الألعاب (PlayStation, Xbox Game Pass, Steam) وبطاقات الهدايا (Netflix, Spotify, Adobe) مع الدفع الإلكتروني المباشر (زين كاش، كي كارد، فيزا، ماستركارد) واستلام المنتجات فوري داخل الخزنة الرقمية.",
+      "iconURL": "https://raw.githubusercontent.com/sadsion2026/zelo-shop-mobile/main/assets/icon.png",
+      "tintColor": "#5844D8",
+      "version": "1.0.0",
+      "versionDate": "2026-09-19",
+      "downloadURL": "https://github.com/sadsion2026/zelo-shop-mobile/releases/download/v1.0.0/ZeloShop.ipa",
+      "size": 6263120,
+      "versions": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-19",
+          "downloadURL": "https://github.com/sadsion2026/zelo-shop-mobile/releases/download/v1.0.0/ZeloShop.ipa",
+          "size": 6263120,
+          "localizedDescription": "إصدار كامل نهائي مدمج ومستقل 100% يعمل بدون الحاجة لأي سيرفر محلي، مع شعار البرق البنفسجي الجديد بدقة 1024x1024 وكافة شاشات المتجر والدفع الإلكتروني."
+        }
+      ]
+    }
+  ]
+}

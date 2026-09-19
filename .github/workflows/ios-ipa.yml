@@ -9,9 +9,12 @@ on:
 
 jobs:
   build-ios:
-    name: Build iOS IPA for Sideloadly
+    name: Build iOS IPA for Sideloadly & AltStore
     runs-on: macos-14
     timeout-minutes: 45
+
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout Code
@@ -33,7 +36,7 @@ jobs:
           cd ios
           pod install
 
-      - name: Build Xcode Project (Unsigned for Sideloadly)
+      - name: Build Xcode Project (Unsigned for Sideloadly & AltStore)
         run: |
           cd ios
           echo "Building workspace ZeloShop.xcworkspace with scheme ZeloShop..."
@@ -66,3 +69,11 @@ jobs:
           path: ios/output/ZeloShop.ipa
           if-no-files-found: error
           retention-days: 14
+
+      - name: Publish to GitHub Releases and AltStore Source
+        if: github.ref == 'refs/heads/main'
+        run: |
+          python3 .github/scripts/publish_release.py ios/output/ZeloShop.ipa
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
