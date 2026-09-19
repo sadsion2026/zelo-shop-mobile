@@ -48,24 +48,12 @@ jobs:
       - name: Build Xcode Project (Unsigned for Sideloadly)
         run: |
           cd ios
-          # Discover workspace
-          if [ -d "ZeloShop.xcworkspace" ]; then
-            WS="ZeloShop.xcworkspace"
-          else
-            WS=$(find . -name "*.xcworkspace" -maxdepth 1 | head -n 1)
-          fi
-
-          # Discover scheme
-          SCHEME=$(xcodebuild -list -workspace "$WS" 2>/dev/null | awk '/Schemes:/{flag=1;next}/^$/{flag=0}flag' | head -n 1 | xargs)
-          if [ -z "$SCHEME" ]; then
-            SCHEME="ZeloShop"
-          fi
-          echo "Building workspace: $WS with scheme: $SCHEME"
+          echo "Building workspace ZeloShop.xcworkspace with scheme ZeloShop..."
 
           mkdir -p build
           xcodebuild build \
-            -workspace "$WS" \
-            -scheme "$SCHEME" \
+            -workspace "ZeloShop.xcworkspace" \
+            -scheme "ZeloShop" \
             -configuration Debug \
             -destination "generic/platform=iOS" \
             -derivedDataPath "build" \
