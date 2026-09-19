@@ -29,32 +29,31 @@ jobs:
       - name: Expo Prebuild (Generate iOS Xcode Project)
         run: npx expo prebuild --platform ios --clean
 
+      - name: Install CocoaPods
+        run: |
+          cd ios
+          pod install
+
       - name: Build Xcode Project (Unsigned for Sideloadly)
         run: |
           cd ios
-          # Discover workspace or project
+          # Discover workspace
           if [ -d "ZeloShop.xcworkspace" ]; then
-            PROJECT_CMD="-workspace ZeloShop.xcworkspace"
+            WS="ZeloShop.xcworkspace"
           else
             WS=$(find . -name "*.xcworkspace" -maxdepth 1 | head -n 1)
-            if [ -n "$WS" ]; then
-              PROJECT_CMD="-workspace $WS"
-            else
-              PROJ=$(find . -name "*.xcodeproj" -maxdepth 1 | head -n 1)
-              PROJECT_CMD="-project $PROJ"
-            fi
           fi
 
           # Discover scheme
-          SCHEME=$(xcodebuild -list $PROJECT_CMD 2>/dev/null | awk '/Schemes:/{flag=1;next}/^$/{flag=0}flag' | head -n 1 | xargs)
+          SCHEME=$(xcodebuild -list -workspace "$WS" 2>/dev/null | awk '/Schemes:/{flag=1;next}/^$/{flag=0}flag' | head -n 1 | xargs)
           if [ -z "$SCHEME" ]; then
             SCHEME="ZeloShop"
           fi
-          echo "Using project flags: $PROJECT_CMD with scheme: $SCHEME"
+          echo "Building workspace: $WS with scheme: $SCHEME"
 
           mkdir -p build
           xcodebuild build \
-            $PROJECT_CMD \
+            -workspace "$WS" \
             -scheme "$SCHEME" \
             -configuration Debug \
             -destination "generic/platform=iOS" \
