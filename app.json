@@ -1,17 +1,30 @@
 {
   "expo": {
-    "name": "expo-legion",
-    "slug": "expo-legion",
+    "name": "Zelo Shop",
+    "slug": "zelo-shop",
+    "scheme": "zeloshop",
+    "owner": "aymen465",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.aymen.zeloshop",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
+      }
     },
     "android": {
+      "package": "com.aymen.zeloshop",
+      "versionCode": 1,
+      "permissions": [
+        "android.permission.INTERNET"
+      ],
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#FAFAFC",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"

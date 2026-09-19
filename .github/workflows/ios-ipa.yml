@@ -1,0 +1,80 @@
+name: Build iOS IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build-ios:
+    name: Build iOS IPA for Sideloadly
+    runs-on: macos-14
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Expo Prebuild (Generate iOS Xcode Project)
+        run: npx expo prebuild --platform ios --clean
+
+      - name: Build Xcode Project (Unsigned for Sideloadly)
+        run: |
+          cd ios
+          # Discover workspace or project
+          if [ -d "ZeloShop.xcworkspace" ]; then
+            PROJECT_CMD="-workspace ZeloShop.xcworkspace"
+          else
+            WS=$(find . -name "*.xcworkspace" -maxdepth 1 | head -n 1)
+            if [ -n "$WS" ]; then
+              PROJECT_CMD="-workspace $WS"
+            else
+              PROJ=$(find . -name "*.xcodeproj" -maxdepth 1 | head -n 1)
+              PROJECT_CMD="-project $PROJ"
+            fi
+          fi
+
+          # Discover scheme
+          SCHEME=$(xcodebuild -list $PROJECT_CMD 2>/dev/null | awk '/Schemes:/{flag=1;next}/^$/{flag=0}flag' | head -n 1 | xargs)
+          if [ -z "$SCHEME" ]; then
+            SCHEME="ZeloShop"
+          fi
+          echo "Using project flags: $PROJECT_CMD with scheme: $SCHEME"
+
+          mkdir -p build
+          xcodebuild build \
+            $PROJECT_CMD \
+            -scheme "$SCHEME" \
+            -configuration Debug \
+            -destination "generic/platform=iOS" \
+            -derivedDataPath "build" \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+          APP_PATH=$(find build/Build/Products -name "*.app" -type d | head -n 1)
+          echo "Found compiled .app bundle at: $APP_PATH"
+          mkdir -p output/Payload
+          cp -R "$APP_PATH" output/Payload/
+          cd output
+          zip -r -y "ZeloShop.ipa" Payload
+          ls -lh ZeloShop.ipa
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ZeloShop-iOS-IPA
+          path: ios/output/ZeloShop.ipa
+          if-no-files-found: error
+          retention-days: 14
