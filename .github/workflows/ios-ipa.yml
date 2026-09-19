@@ -42,7 +42,7 @@ jobs:
           xcodebuild build \
             -workspace "ZeloShop.xcworkspace" \
             -scheme "ZeloShop" \
-            -configuration Debug \
+            -configuration Release \
             -destination "generic/platform=iOS" \
             -derivedDataPath "build" \
             CODE_SIGN_IDENTITY="" \
@@ -51,6 +51,8 @@ jobs:
 
           APP_PATH=$(find build/Build/Products -name "*.app" -type d | head -n 1)
           echo "Found compiled .app bundle at: $APP_PATH"
+          echo "Checking app bundle contents:"
+          ls -la "$APP_PATH"
           mkdir -p output/Payload
           cp -R "$APP_PATH" output/Payload/
           cd output
