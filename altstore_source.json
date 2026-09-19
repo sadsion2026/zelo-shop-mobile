@@ -19,16 +19,16 @@
       "iconURL": "https://raw.githubusercontent.com/sadsion2026/zelo-shop-mobile/main/assets/icon.png",
       "tintColor": "#5844D8",
       "version": "1.0.0",
-      "versionDate": "2026-09-19",
+      "versionDate": "2026-09-19T18:36:57Z",
       "downloadURL": "https://github.com/sadsion2026/zelo-shop-mobile/releases/download/v1.0.0/ZeloShop.ipa",
       "size": 6263120,
       "versions": [
         {
           "version": "1.0.0",
-          "date": "2026-09-19",
+          "date": "2026-09-19T18:36:57Z",
           "downloadURL": "https://github.com/sadsion2026/zelo-shop-mobile/releases/download/v1.0.0/ZeloShop.ipa",
           "size": 6263120,
-          "localizedDescription": "إصدار كامل نهائي مدمج ومستقل 100% يعمل بدون الحاجة لأي سيرفر محلي، مع شعار البرق البنفسجي الجديد بدقة 1024x1024 وكافة شاشات المتجر والدفع الإلكتروني."
+          "localizedDescription": "v1.0.0: تطبيق Zelo Shop الرسمي المستقل للألعاب والاشتراكات والدفع الإلكتروني."
         }
       ]
     }
